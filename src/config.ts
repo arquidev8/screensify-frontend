@@ -14,11 +14,12 @@ export const API_URL = `${API_BASE_URL}${API_PREFIX}`;
 
 // Endpoints de la API
 export const API_ENDPOINTS = {
-  LOGIN: `${API_URL}/login/access-token`,
-  REGISTER: `${API_URL}/register`,
-  USERS_ME: `${API_URL}/users/me`,
-  PROJECTS: `${API_URL}/projects`,
-  SCREENS: `${API_URL}/screens`,
+  LOGIN: `${API_URL}/login/access-token/`,
+  REGISTER: `${API_URL}/register/`,
+  USERS_ME: `${API_URL}/users/me/`,
+  PROJECTS: `${API_URL}/projects/`,
+  SCREENS: `${API_URL}/screens/`,
+  COMPONENT_INSTANCES: `${API_URL}/componentinstances/`,
   MCP_EXECUTE: `${API_URL}/mcp/execute`,
 };
 

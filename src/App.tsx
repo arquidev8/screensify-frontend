@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, ReactNode, FC } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useAuthStore } from './stores/authStore';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import MainLayout from './components/layout/MainLayout';
+import ProjectsPage from './pages/projects/ProjectsPage';
+import ScreensPage from './pages/screens/ScreensPage';
+import EditorPage from './pages/editor/EditorPage';
 
 // Componente para rutas protegidas
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+interface ProtectedRouteProps { children: ReactNode }
+const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated, token, fetchUserProfile } = useAuthStore();
   
   useEffect(() => {
@@ -25,7 +28,8 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 };
 
 // Componente para rutas de autenticación (redirige si ya está autenticado)
-const AuthRoute = ({ children }: { children: JSX.Element }) => {
+interface AuthRouteProps { children: ReactNode }
+const AuthRoute: FC<AuthRouteProps> = ({ children }) => {
   const { isAuthenticated } = useAuthStore();
 
   if (isAuthenticated) {
@@ -55,7 +59,19 @@ function App() {
         <Route path="/dashboard" element={
           <ProtectedRoute>
             <MainLayout>
-              <div>Dashboard (Próximamente)</div>
+              <ProjectsPage />
+            </MainLayout>
+          </ProtectedRoute>
+        } />
+        {/* Página de proyectos */}
+        <Route path="/projects" element={<ProtectedRoute><ProjectsPage /></ProtectedRoute>} />
+        {/* Página de pantallas */}
+        <Route path="/screens" element={<ProtectedRoute><ScreensPage /></ProtectedRoute>} />
+        {/* Editor visual */}
+        <Route path="/editor/:screenId" element={
+          <ProtectedRoute>
+            <MainLayout>
+              <EditorPage />
             </MainLayout>
           </ProtectedRoute>
         } />
